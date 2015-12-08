@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui">
+    <title>Phaser Boilerplate</title>
+
+    <style>
+        html, body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<script src="vendor/phaser/phaser.js"></script>
+
+<script src="js/state/preloader.js"></script>
+<script src="js/state/game.js"></script>
+
+<script src="js/entity/preload-bar.js"></script>
+
+<script src="js/game.js"></script>
+
+<script type="text/javascript">
+    window.addEventListener("load", function () {
+        window.game = new Game();
+    });
+</script>
+</body>
+</html>
