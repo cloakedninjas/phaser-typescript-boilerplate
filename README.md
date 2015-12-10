@@ -16,12 +16,14 @@ Or clone from Git:
 
 `git clone https://github.com/cloakedninjas/phaser-typescript-boilerplate.git`
 
-Then install dependencies:
+An install script is provided which will perform the following:
 
 ```
 npm install;
 bower install;
 ```
+
+And will prompt you for your Game's namespace.
 
 ## Building
 

@@ -22,5 +22,8 @@
     "grunt-contrib-copy": "^0.8.2",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-ts": "^5.2.0"
+  },
+  "devDependencies": {
+    "prompt": "^0.2.14"
   }
 }
