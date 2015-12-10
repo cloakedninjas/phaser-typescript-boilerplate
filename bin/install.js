@@ -51,7 +51,7 @@ function updateNamespace(namespace) {
   fileList.forEach(function (path) {
     fs.readFile(path, function (err, data) {
       data = data.toString()
-          .replace('module Namespace', 'module ' + namespace);
+          .replace('Namespace', namespace);
 
       fs.writeFile(path, data);
       rewriteCount++;

@@ -8,6 +8,7 @@ module Namespace.State {
         }
 
         create() {
+            this.loadingBar.setFillPercent(100);
             var tween = this.game.add.tween(this.loadingBar).to({alpha: 0}, 1000, Phaser.Easing.Linear.None, true);
             tween.onComplete.add(this.startGame, this);
         }
