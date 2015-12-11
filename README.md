@@ -3,10 +3,11 @@
 Unopinionated (mostly) package containing bare bones Phaser game, containing:
 
 * Phaser (2.4.4)
-* Game
-  * Preload State
-  * Game State
+* Typescript
 * Grunt build process
+* Basic game
+  * Preload State, with loading bar
+  * Game State
 
 ## Installing
 
@@ -18,13 +19,19 @@ Or clone from Git:
 
 An install script is provided which will perform the following:
 
-```
-npm install;
-bower install;
-```
+- Install npm dependencies
+- Install bower dependencies
+- Ask you for a namespace for your project
+- Set the namespace for the base files provided
 
-And will prompt you for your Game's namespace.
+You can run it with `bin/install.sh` 
 
 ## Building
 
 `grunt dev` for single build or `grunt watch` to compile as you make changes.
+
+## Running
+
+Built files are placed into the `public/` directory. Point a webserver at it, and you're away!
+
+`http-server public`
