@@ -1,20 +1,15 @@
 #!/usr/bin/env node
 
-var spawn = require('child_process').spawn,
-    prompt = require('prompt'),
+var exec = require('child_process').exec,
     fs = require('fs');
 
 console.log('Installing npm dependencies...');
 
-var child = spawn('npm', ['install']);
-
-child.on('close', function (code) {
-  if (code === 0) {
+exec('npm install', function (error) {
+  if (!error) {
     console.log('Installing bower dependencies...');
-    child = spawn('bower', ['install']);
-
-    child.on('close', function (code) {
-      if (code === 0) {
+    exec('bower install', function (error) {
+      if (!error) {
         promptForNamespace();
       }
     });
@@ -22,6 +17,8 @@ child.on('close', function (code) {
 });
 
 function promptForNamespace() {
+  var prompt = require('prompt');
+
   prompt.start();
 
   prompt.message = '';
@@ -51,7 +48,7 @@ function updateNamespace(namespace) {
   fileList.forEach(function (path) {
     fs.readFile(path, function (err, data) {
       data = data.toString()
-          .replace('Namespace', namespace);
+          .replace(/Namespace/g, namespace);
 
       fs.writeFile(path, data);
       rewriteCount++;

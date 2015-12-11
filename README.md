@@ -24,7 +24,7 @@ An install script is provided which will perform the following:
 - Ask you for a namespace for your project
 - Set the namespace for the base files provided
 
-You can run it with `bin/install.sh` 
+You can run it with `bin/install` 
 
 ## Building
 
