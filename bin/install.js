@@ -38,11 +38,11 @@ function promptForNamespace() {
 
 function updateNamespace(namespace) {
   var fileList = [
-    'src/scripts/entity/preload-bar.ts',
-    'src/scripts/state/game.ts',
-    'src/scripts/state/preloader.ts',
-    'src/scripts/game.ts'
-  ],
+        'src/scripts/entity/preload-bar.ts',
+        'src/scripts/state/game.ts',
+        'src/scripts/state/preloader.ts',
+        'src/scripts/game.ts'
+      ],
       rewriteCount = 0;
 
   fileList.forEach(function (path) {
@@ -55,8 +55,42 @@ function updateNamespace(namespace) {
 
       if (rewriteCount === fileList.length) {
         console.log('Updated namespace in .ts files');
-        console.log('Install complete!');
+        promptForCleanup();
       }
     });
+  });
+}
+
+function promptForCleanup() {
+  var prompt = require('prompt');
+
+  prompt.start();
+
+  prompt.message = '';
+  prompt.delimiter = '';
+
+  prompt.get([{
+    name: 'cleanup',
+    description: 'Initialize Git? (Y / N)'.green,
+    type: 'string',
+    default: 'Y',
+    required: true
+  }], function (err, result) {
+    if (!err && (result.cleanup === 'Y' || result.cleanup === 'y')) {
+      cleanup();
+    }
+  });
+}
+
+function cleanup() {
+  var rmrf = require('rimraf');
+
+  rmrf('.git', function (error) {
+    if (!error) {
+      exec('git init', function () {
+        console.log('Git initialized.');
+        console.log('Tip: You might want to adjust bower.json + package.json');
+      });
+    }
   });
 }
