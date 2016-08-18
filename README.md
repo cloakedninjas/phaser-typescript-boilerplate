@@ -2,7 +2,7 @@
 
 Unopinionated (mostly) package containing bare bones Phaser game, containing:
 
-* Phaser (2.4.4)
+* Phaser (2.6.1)
 * Typescript
 * Grunt build process
 * Basic game
