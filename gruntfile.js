@@ -29,7 +29,11 @@ module.exports = function (grunt) {
                         dest: 'public/index.html'
                     },
                     {
-                        src: 'bower_components/phaser/build/custom/phaser-no-physics.js',
+                        src: 'node_modules/phaser/build/custom/phaser-no-physics.js',
+                        dest: 'public/vendor/phaser/phaser.js'
+                    },
+                    {
+                        src: 'node_modules/phaser-ce/build/custom/phaser-no-physics.js',
                         dest: 'public/vendor/phaser/phaser.js'
                     }
                 ]

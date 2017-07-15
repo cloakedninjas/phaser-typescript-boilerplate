@@ -3,52 +3,104 @@
 var fs = require('fs'),
     util = require('util'),
     spawn = require('child_process').spawn,
-    npmInstall = spawn('npm', ['install']);
+    packageJson = require('../package.json'),
+    prompt;
 
-console.log(styleText('Beginning Installtion Process'));
+console.log(styleText('Beginning Installation Process'));
 console.log('=============================');
-console.log(styleText('Installing npm dependencies...'));
 
-npmInstall.stdout.on('data', function (data) {
-  pipeOutput(data);
-});
+installNpmDeps();
 
-npmInstall.stderr.on('data', function (data) {
-  pipeOutput(data);
-});
+function installNpmDeps() {
+  var npmInstall = spawn('npm', ['install']);
+  console.log(styleText('Installing npm dependencies...'));
 
-npmInstall.on('exit', function (code) {
-  if (code === 0) {
-    console.log(styleText('Installing bower dependencies...'));
+  npmInstall.stdout.on('data', function (data) {
+    pipeOutput(data);
+  });
 
-    var bowerInstall = spawn('bower', ['install']);
+  npmInstall.stderr.on('data', function (data) {
+    pipeOutput(data);
+  });
 
-    bowerInstall.stdout.on('data', function (data) {
-      pipeOutput(data);
-    });
+  npmInstall.on('exit', function (code) {
+    if (code === 0) {
+      prompt = require('prompt');
+      promptForPhaserBuild();
+    }
+    else {
+      console.error(styleText('Failed to install npm dependencies', 'red'));
+    }
+  });
+}
 
-    bowerInstall.stderr.on('data', function (data) {
-      pipeOutput(data);
-    });
+function promptForPhaserBuild() {
+  prompt = require('prompt');
+  prompt.start();
 
-    bowerInstall.on('exit', function (code) {
-      if (code === 0) {
-        promptForNamespace();
+  prompt.message = '';
+  prompt.delimiter = '';
+
+  prompt.get([{
+    name: 'build',
+    description: 'Phaser CE or 2 final? (CE | 2)',
+    type: 'string',
+    required: true
+  }], function (err, result) {
+    if (!err) {
+      if (result.build === 'ce' || result.build === 'CE') {
+        // Update refs.d.ts to use CE
+
+        var filename = 'src/refs.d.ts';
+
+        fs.readFile(filename, 'utf8', function (err, data) {
+          if (err) {
+            console.warn(styleText('Failed to open refs.d.ts\nYou will need to update refs.d.ts manually to point to phaser-ce', 'yellow'));
+            console.warn(err);
+          } else {
+            var result = data.replace(/\/phaser\//, '\/phaser-ce\/');
+
+            fs.writeFile(filename, result, 'utf8', function (err) {
+              if (err) {
+                console.warn(styleText('Failed to update refs.d.ts\nYou will need to update refs.d.ts manually to point to phaser-ce', 'yellow'));
+                console.warn(err);
+              }
+            });
+          }
+        });
+
+        setPhaserDep('phaser-ce');
+      } else {
+        setPhaserDep('phaser');
       }
-      else {
-        console.error(styleText('Failed to install bower dependencies', 'red'));
-      }
-    });
-  }
-  else {
-    console.error(styleText('Failed to install npm dependencies', 'red'));
-  }
+    }
+  });
+}
 
-});
+function setPhaserDep(build) {
+  var npmInstall = spawn('npm', ['install', build, '--save']);
+
+  console.log(styleText('Installing ' + build + '...'));
+
+  npmInstall.stdout.on('data', function (data) {
+    pipeOutput(data);
+  });
+
+  npmInstall.stderr.on('data', function (data) {
+    pipeOutput(data);
+  });
+
+  npmInstall.on('exit', function (code) {
+    if (code === 0) {
+      promptForNamespace()
+    }
+    else {
+      console.error(styleText('Failed to install Phaser', 'red'));
+    }
+  });
+}
 
 function promptForNamespace() {
-  var prompt = require('prompt');
-
   prompt.start();
 
   prompt.message = '';
@@ -92,8 +144,6 @@ function updateNamespace(namespace) {
 }
 
 function promptForCleanup() {
-  var prompt = require('prompt');
-
   prompt.start();
 
   prompt.message = '';
@@ -138,8 +188,7 @@ function cleanupGit() {
 }
 
 function cleanupNode() {
-  var packageJson = require('../package.json'),
-      npmRm = spawn('npm', ['rm', '-D'].concat(Object.keys(packageJson.devDependencies)));
+  var npmRm = spawn('npm', ['rm', '-D'].concat(Object.keys(packageJson.devDependencies)));
 
   console.log(styleText('Removing build dependencies...'));
 
@@ -167,7 +216,7 @@ function cleanupBin() {
 function showInstallSuccess() {
   console.log('==============================');
   console.log(styleText('Install completed successfully') + '\n');
-  console.log('It is recommended to run: `npm init && bower init` to define your own package settings');
+  console.log('It is recommended to run: `npm init` to define your own package settings');
   console.log('==============================');
 }
 
@@ -182,7 +231,8 @@ function styleText(text, colour) {
 
   var colours = {
         green: 32,
-        red: 31
+        red: 31,
+        yellow: 33
       },
       c = colours[colour];
 

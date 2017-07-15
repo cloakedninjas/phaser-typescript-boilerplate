@@ -11,16 +11,12 @@ Unopinionated (mostly) package containing bare bones Phaser game, containing:
 
 ## Installing
 
-`bower install phaser-typescript-boilerplate`
-
-Or clone from Git:
-
-`git clone https://github.com/cloakedninjas/phaser-typescript-boilerplate.git`
+`git clone --depth 1 https://github.com/cloakedninjas/phaser-typescript-boilerplate.git`
 
 An install script is provided which will perform the following:
 
 - Install npm dependencies
-- Install bower dependencies
+- Ask which version of Phaser you want to install (latest official 2.x or Community Edition)
 - Ask you for a namespace for your project
 - Set the namespace for the base files provided
 
