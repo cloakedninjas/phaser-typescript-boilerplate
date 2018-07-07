@@ -2,7 +2,7 @@
 
 Unopinionated (mostly) package containing bare bones Phaser game, containing:
 
-* Phaser (2.6.1)
+* Phaser 2 or CE
 * Typescript
 * Grunt build process
 * Basic game
@@ -24,7 +24,8 @@ You can run it with `bin/install`
 
 ## Building
 
-`grunt dev` for single build or `grunt watch` to compile as you make changes.
+- `grunt dev` for single build or `grunt watch` to compile as you make changes.
+- `grunt prod` for production (minified) build
 
 ## Running
 

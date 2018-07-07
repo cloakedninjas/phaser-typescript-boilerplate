@@ -1,6 +1,6 @@
 {
   "name": "phaser-typescript-boilerplate",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Boilerplate for Phaser using Typescript",
   "main": "index.js",
   "scripts": {
@@ -23,7 +23,6 @@
     "grunt-contrib-uglify": "^3.3.0",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-ts": "6.0.0-beta.20",
-    "phaser-ce": "^2.11.0",
     "typescript": "^2.9.2"
   },
   "devDependencies": {

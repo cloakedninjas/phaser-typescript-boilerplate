@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 var fs = require('fs'),
-    util = require('util'),
     spawn = require('child_process').spawn,
     packageJson = require('../package.json'),
     prompt;
