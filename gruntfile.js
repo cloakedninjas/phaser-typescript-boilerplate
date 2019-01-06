@@ -38,7 +38,7 @@ module.exports = function (grunt) {
             dest: 'public/index.html'
           },
           {
-            src: 'node_modules/phaser-ce/build/custom/phaser-no-physics.js',
+            src: 'node_modules/phaser/build/custom/phaser-no-physics.js',
             dest: 'public/vendor/phaser/phaser.js'
           }
         ]
@@ -58,7 +58,7 @@ module.exports = function (grunt) {
             dest: 'public/index.html'
           },
           {
-            src: 'node_modules/phaser-ce/build/custom/phaser-no-physics.js',
+            src: 'node_modules/phaser/build/custom/phaser-no-physics.js',
             dest: 'public/vendor/phaser/phaser.js'
           }
         ]
@@ -83,7 +83,7 @@ module.exports = function (grunt) {
     uglify: {
       prod: {
         files: {
-          'public/game.min.js': ['public/game.min.js']
+          'public/game.min.js': ['public/vendor/phaser/phaser.js', 'public/game.min.js'],
         }
       }
     }
