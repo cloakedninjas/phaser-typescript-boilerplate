@@ -68,6 +68,24 @@ function promptForPhaserBuild() {
           }
         });
 
+        filename = 'gruntfile.js';
+
+        fs.readFile(filename, 'utf8', function (err, data) {
+          if (err) {
+            console.warn(styleText('Failed to open gruntfile.js\nYou will need to update it manually to point to phaser-ce', 'yellow'));
+            console.warn(err);
+          } else {
+            var result = data.replace(/node_modules\/phaser\//, 'node_modules\/phaser-ce\/');
+
+            fs.writeFile(filename, result, 'utf8', function (err) {
+              if (err) {
+                console.warn(styleText('Failed to update gruntfile.js\nYou will need to update it manually to point to phaser-ce', 'yellow'));
+                console.warn(err);
+              }
+            });
+          }
+        });
+
         setPhaserDep('phaser-ce');
       } else {
         setPhaserDep('phaser');
