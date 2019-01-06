@@ -8,7 +8,8 @@ module.exports = function (grunt) {
           module: 'amd', //or commonjs
           target: 'es5', //or es3
           sourceMap: false,
-          declaration: false
+          declaration: false,
+          rootDir: 'src/scripts'
         }
       },
       prod: {
