@@ -1,5 +1,10 @@
 # Phaser Typescript Boilerplate
 
+> ⚠️ **Phaser 3 boilerplate available !**
+> This repo is no longer maintained, see boilerplate for v3 here: https://github.com/cloakedninjas/phaser3-typescript-boilerplate
+
+## Introduction
+
 Unopinionated (mostly) package containing bare bones Phaser game, containing:
 
 * Phaser 2 or CE
